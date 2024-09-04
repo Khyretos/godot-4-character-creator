@@ -1,0 +1,205 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1mxsm0e2xatk"]
+
+[sub_resource type="VoxelGIData" id="1"]
+dynamic_range = 4.0
+interior = true
+
+[sub_resource type="BoxMesh" id="2"]
+lightmap_size_hint = Vector2i(128, 128)
+
+[sub_resource type="StandardMaterial3D" id="5"]
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+
+[node name="LevelTest" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.820372, 0.227422, -0.524661, 0, 0.917512, 0.397709, 0.571831, -0.326269, 0.752701, -6.75876, 2.14993, 1.33477)
+light_color = Color(0.486275, 0.796078, 0.917647, 1)
+light_energy = 2.81
+light_indirect_energy = 0.23
+shadow_enabled = true
+
+[node name="VoxelGI" type="VoxelGI" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.39915, 15.6078)
+subdiv = 0
+size = Vector3(64.4278, 17.8828, 85.4574)
+data = SubResource("1")
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="MeshInstance13" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(2.6585, 0, 0, 0, 14.7334, 0, 0, 0, 1, 1.79438, 4.44265, -20.3388)
+mesh = SubResource("2")
+
+[node name="MeshInstance14" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(2.6585, 0, 0, 0, 14.7334, 0, 0, 0, 1, -12.2956, 4.44265, -20.3388)
+mesh = SubResource("2")
+
+[node name="MeshInstance33" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(2.6585, 0, 0, 0, 14.7334, 0, 0, 0, 1, 1.79438, 8.35285, 30.5282)
+mesh = SubResource("2")
+
+[node name="MeshInstance32" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(2.6585, 0, 0, 0, 14.7334, 0, 0, 0, 1, -12.2956, 8.35285, 30.5282)
+mesh = SubResource("2")
+
+[node name="MeshInstance36" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(2.6585, 0, 0, 0, 14.7334, 0, 0, 0, 1, 1.79438, 8.35285, 48.6968)
+mesh = SubResource("2")
+
+[node name="MeshInstance35" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(2.6585, 0, 0, 0, 14.7334, 0, 0, 0, 1, -12.2956, 8.35285, 48.6968)
+mesh = SubResource("2")
+
+[node name="MeshInstance38" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(2.6585, 0, 0, 0, 14.7334, 0, 0, 0, 1, -12.2956, 8.35285, -3.57654)
+mesh = SubResource("2")
+
+[node name="MeshInstance11" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(47.8039, 0, 0, 0, 1, 0, 0, 0, 59.9211, 0, -1.45789, 0)
+mesh = SubResource("2")
+
+[node name="MeshInstance41" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(2.15574, 0, 0, 0, 1, 0, 0, 0, 3.13076, 0, -1.01768, 0)
+mesh = SubResource("2")
+
+[node name="MeshInstance2" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(31.2025, 0, 0, 0, 14.7334, 0, 0, 0, 1, 0, 8.13309, 48.3891)
+mesh = SubResource("2")
+
+[node name="MeshInstance4" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(0.802416, 0, 0.999899, 0, 14.7334, 0, -56.4772, 0, 0.0142064, 24.6637, 8.13309, 14.3292)
+mesh = SubResource("2")
+
+[node name="MeshInstance3" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(-2.5378e-06, 0, -1, 0, 14.7334, 0, 58.058, 0, -4.37114e-08, -30.387, 8.13309, 7.697)
+mesh = SubResource("2")
+
+[node name="MeshInstance5" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(30.3255, 0, 0, 0, 1.63536, 0, 0, 0, 1, -5.56162, 22.74, -14.9227)
+mesh = SubResource("2")
+
+[node name="MeshInstance6" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(30.3255, 0, 0, 0, 1.63536, 0, 0, 0, 1, -5.56162, 22.74, -3.68482)
+mesh = SubResource("2")
+
+[node name="MeshInstance7" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(30.3255, 0, 0, 0, 1.63536, 0, 0, 0, 1, -5.56162, 22.74, 8.00531)
+mesh = SubResource("2")
+
+[node name="MeshInstance8" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(30.3255, 0, 0, 0, 1.63536, 0, 0, 0, 1, -5.56162, 22.74, 19.5675)
+mesh = SubResource("2")
+
+[node name="MeshInstance9" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(30.3255, 0, 0, 0, 1.63536, 0, 0, 0, 1, -5.56162, 22.74, 31.078)
+mesh = SubResource("2")
+
+[node name="MeshInstance10" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(30.3255, 0, 0, 0, 1.63536, 0, 0, 0, 1, -5.56162, 22.74, 40.663)
+mesh = SubResource("2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(31.2025, 0, 0, 0, 14.7334, 0, 0, 0, 1, 0, 8.13309, -24.7801)
+mesh = SubResource("2")
+
+[node name="MeshInstance12" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(2.6585, 0, 0, 0, 14.7334, 0, 0, 0, 1, 16.3669, 4.44265, -20.3388)
+mesh = SubResource("2")
+
+[node name="MeshInstance34" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(2.6585, 0, 0, 0, 14.7334, 0, 0, 0, 1, 16.3669, 8.35285, 30.5282)
+mesh = SubResource("2")
+
+[node name="MeshInstance37" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(2.6585, 0, 0, 0, 14.7334, 0, 0, 0, 1, 16.3669, 8.35285, 48.6968)
+mesh = SubResource("2")
+
+[node name="MeshInstance40" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(2.6585, 0, 0, 0, 14.7334, 0, 0, 0, 1, 16.3669, 8.35285, -3.57654)
+mesh = SubResource("2")
+
+[node name="MeshInstance15" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(2.6585, 0, 0, 0, 14.7334, 0, 0, 0, 0.17934, 26.4243, 4.44265, -10.7158)
+material_override = SubResource("5")
+mesh = SubResource("2")
+
+[node name="MeshInstance16" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(2.6585, 0, 0, 0, 14.7334, 0, 0, 0, 0.17934, 26.4243, 4.44265, -4.85984)
+material_override = SubResource("5")
+mesh = SubResource("2")
+
+[node name="MeshInstance17" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(2.6585, 0, 0, 0, 14.7334, 0, 0, 0, 0.17934, 26.4243, 4.44265, 0.779102)
+material_override = SubResource("5")
+mesh = SubResource("2")
+
+[node name="MeshInstance18" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(2.6585, 0, 0, 0, 14.7334, 0, 0, 0, 0.17934, 26.4243, 4.44265, 6.93896)
+material_override = SubResource("5")
+mesh = SubResource("2")
+
+[node name="MeshInstance19" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(2.6585, 0, 0, 0, 14.7334, 0, 0, 0, 0.17934, 26.0911, 4.44265, 12.5946)
+material_override = SubResource("5")
+mesh = SubResource("2")
+
+[node name="MeshInstance20" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(2.6585, 0, 0, 0, 14.7334, 0, 0, 0, 0.17934, 26.0911, 4.44265, 20.7697)
+material_override = SubResource("5")
+mesh = SubResource("2")
+
+[node name="MeshInstance21" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(2.6585, 0, 0, 0, 14.7334, 0, 0, 0, 0.17934, 26.0911, 4.44265, 29.9534)
+material_override = SubResource("5")
+mesh = SubResource("2")
+
+[node name="MeshInstance22" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(2.6585, 0, 0, 0, 14.7334, 0, 0, 0, 0.17934, 25.5091, 4.44265, 40.4894)
+material_override = SubResource("5")
+mesh = SubResource("2")
+
+[node name="MeshInstance31" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(2.6585, 0, 0, 0, 14.7334, 0, 0, 0, 1, -40.9025, 4.44265, -20.3388)
+mesh = SubResource("2")
+
+[node name="MeshInstance30" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(2.6585, 0, 0, 0, 14.7334, 0, 0, 0, 0.17934, -30.845, 4.44265, -10.7158)
+material_override = SubResource("5")
+mesh = SubResource("2")
+
+[node name="MeshInstance29" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(2.6585, 0, 0, 0, 14.7334, 0, 0, 0, 0.17934, -30.845, 4.44265, -4.85984)
+material_override = SubResource("5")
+mesh = SubResource("2")
+
+[node name="MeshInstance28" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(2.6585, 0, 0, 0, 14.7334, 0, 0, 0, 0.17934, -30.845, 4.44265, 0.779102)
+material_override = SubResource("5")
+mesh = SubResource("2")
+
+[node name="MeshInstance27" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(2.6585, 0, 0, 0, 14.7334, 0, 0, 0, 0.17934, -30.845, 4.44265, 6.93896)
+material_override = SubResource("5")
+mesh = SubResource("2")
+
+[node name="MeshInstance26" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(2.6585, 0, 0, 0, 14.7334, 0, 0, 0, 0.17934, -31.1783, 4.44265, 12.5946)
+material_override = SubResource("5")
+mesh = SubResource("2")
+
+[node name="MeshInstance25" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(2.6585, 0, 0, 0, 14.7334, 0, 0, 0, 0.17934, -31.1783, 4.44265, 20.7697)
+material_override = SubResource("5")
+mesh = SubResource("2")
+
+[node name="MeshInstance24" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(2.6585, 0, 0, 0, 14.7334, 0, 0, 0, 0.17934, -31.1783, 4.44265, 29.9534)
+material_override = SubResource("5")
+mesh = SubResource("2")
+
+[node name="MeshInstance23" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(2.6585, 0, 0, 0, 14.7334, 0, 0, 0, 0.17934, -31.7603, 4.44265, 40.4894)
+material_override = SubResource("5")
+mesh = SubResource("2")

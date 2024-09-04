@@ -1,0 +1,652 @@
+[gd_scene load_steps=13 format=3 uid="uid://d03ssghwguunl"]
+
+[ext_resource type="Theme" uid="uid://b8shoagww635v" path="res://GUI/Theme/Theme.tres" id="1"]
+[ext_resource type="Script" path="res://Scripts/CharacterCreation.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://dg6l7h7tcstw1" path="res://Scenes/SliderBox.tscn" id="3"]
+[ext_resource type="Script" path="res://Scripts/Panel.gd" id="4"]
+[ext_resource type="PackedScene" uid="uid://dv58m5gpn7re1" path="res://Scenes/ColorPickerButton.tscn" id="5"]
+[ext_resource type="Texture2D" uid="uid://dx26l43rdnn4m" path="res://Presets/preset1.png" id="6"]
+[ext_resource type="Theme" uid="uid://b8ohtincikvcx" path="res://GUI/Theme/PresetButtonTheme.tres" id="7"]
+[ext_resource type="Script" path="res://Scripts/Randomizer.gd" id="8"]
+[ext_resource type="Script" path="res://Scripts/EditBehaviour.gd" id="9"]
+[ext_resource type="FontFile" uid="uid://mbwoou5mfa36" path="res://GUI/Theme/Roboto-Bold.ttf" id="10"]
+
+[sub_resource type="StyleBoxFlat" id="1"]
+bg_color = Color(0.105882, 0.227451, 0.282353, 1)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.145098, 0.419608, 0.184314, 1)
+border_blend = true
+shadow_size = 6
+
+[sub_resource type="FontFile" id="2"]
+fallbacks = Array[Font]([ExtResource("10")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[node name="CharacterCreation" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1")
+script = ExtResource("2")
+
+[node name="Label" type="RichTextLabel" parent="."]
+layout_mode = 0
+anchor_bottom = 1.0
+offset_left = 1238.28
+offset_top = 36.1767
+offset_right = 1551.28
+offset_bottom = -9.8233
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+anchor_right = 0.191
+anchor_bottom = 1.0
+offset_top = 5.0
+offset_right = -20.72
+offset_bottom = 411.0
+mouse_filter = 1
+script = ExtResource("4")
+
+[node name="vb" type="VBoxContainer" parent="Panel"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 0
+
+[node name="bt_presets" type="Button" parent="Panel/vb"]
+layout_mode = 2
+text = "Presets"
+
+[node name="presets" type="VBoxContainer" parent="Panel/vb"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="Panel/vb/presets"]
+layout_mode = 2
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 5
+
+[node name="preset1" type="TextureButton" parent="Panel/vb/presets/GridContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("6")
+stretch_mode = 5
+
+[node name="preset2" type="TextureButton" parent="Panel/vb/presets/GridContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("6")
+stretch_mode = 5
+
+[node name="preset3" type="TextureButton" parent="Panel/vb/presets/GridContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("6")
+stretch_mode = 5
+
+[node name="preset4" type="TextureButton" parent="Panel/vb/presets/GridContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("6")
+stretch_mode = 5
+
+[node name="preset5" type="TextureButton" parent="Panel/vb/presets/GridContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("6")
+stretch_mode = 5
+
+[node name="preset6" type="TextureButton" parent="Panel/vb/presets/GridContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("6")
+stretch_mode = 5
+
+[node name="preset7" type="TextureButton" parent="Panel/vb/presets/GridContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("6")
+stretch_mode = 5
+
+[node name="preset8" type="TextureButton" parent="Panel/vb/presets/GridContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("6")
+stretch_mode = 5
+
+[node name="preset9" type="TextureButton" parent="Panel/vb/presets/GridContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("6")
+stretch_mode = 5
+
+[node name="preset10" type="TextureButton" parent="Panel/vb/presets/GridContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("6")
+stretch_mode = 5
+
+[node name="bt_body" type="Button" parent="Panel/vb"]
+layout_mode = 2
+text = "Body"
+
+[node name="body" type="VBoxContainer" parent="Panel/vb"]
+layout_mode = 2
+
+[node name="m_chubby" parent="Panel/vb/body" instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="vb" type="VBoxContainer" parent="Panel/vb/body"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/vb/body/vb"]
+layout_mode = 2
+text = "Skin Tone"
+horizontal_alignment = 1
+
+[node name="skinTonePresets" type="HBoxContainer" parent="Panel/vb/body/vb"]
+layout_mode = 2
+alignment = 1
+
+[node name="tone1" type="Button" parent="Panel/vb/body/vb/skinTonePresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="tone2" type="Button" parent="Panel/vb/body/vb/skinTonePresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="tone3" type="Button" parent="Panel/vb/body/vb/skinTonePresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="tone4" type="Button" parent="Panel/vb/body/vb/skinTonePresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="tone5" type="Button" parent="Panel/vb/body/vb/skinTonePresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="tone6" type="Button" parent="Panel/vb/body/vb/skinTonePresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="tone7" type="Button" parent="Panel/vb/body/vb/skinTonePresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="tone8" type="Button" parent="Panel/vb/body/vb/skinTonePresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="tone9" type="Button" parent="Panel/vb/body/vb/skinTonePresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="random" type="Button" parent="Panel/vb/body/vb/skinTonePresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+text = "R"
+
+[node name="skinTone_body" parent="Panel/vb/body/vb" instance=ExtResource("5")]
+layout_mode = 2
+
+[node name="bt_head" type="Button" parent="Panel/vb"]
+layout_mode = 2
+text = "Head"
+
+[node name="head" type="VBoxContainer" parent="Panel/vb"]
+layout_mode = 2
+
+[node name="e_eyebrows" parent="Panel/vb/head" instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="a_asymmetry" parent="Panel/vb/head" instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="w_eyeBrowHeight" parent="Panel/vb/head" instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="d_beard" parent="Panel/vb/head" instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="p_facePaint" parent="Panel/vb/head" instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="sLabel" parent="Panel/vb/head/p_facePaint" index="0"]
+text = "p_facePaint"
+
+[node name="slider" parent="Panel/vb/head/p_facePaint" index="1"]
+max_value = 4.0
+step = 1.0
+
+[node name="vb" type="VBoxContainer" parent="Panel/vb/head"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/vb/head/vb"]
+layout_mode = 2
+text = "Face Paint Color"
+horizontal_alignment = 1
+
+[node name="facePaintColor_head" parent="Panel/vb/head/vb" instance=ExtResource("5")]
+layout_mode = 2
+
+[node name="vb2" type="VBoxContainer" parent="Panel/vb/head"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/vb/head/vb2"]
+layout_mode = 2
+text = "Eye Color"
+horizontal_alignment = 1
+
+[node name="eyeColorPresets" type="HBoxContainer" parent="Panel/vb/head/vb2"]
+layout_mode = 2
+alignment = 1
+
+[node name="black" type="Button" parent="Panel/vb/head/vb2/eyeColorPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="dark_brown" type="Button" parent="Panel/vb/head/vb2/eyeColorPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="medium_brown" type="Button" parent="Panel/vb/head/vb2/eyeColorPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="light_brown" type="Button" parent="Panel/vb/head/vb2/eyeColorPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="dark_green" type="Button" parent="Panel/vb/head/vb2/eyeColorPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="light_green" type="Button" parent="Panel/vb/head/vb2/eyeColorPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="dark_blue" type="Button" parent="Panel/vb/head/vb2/eyeColorPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="light_blue" type="Button" parent="Panel/vb/head/vb2/eyeColorPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="grey" type="Button" parent="Panel/vb/head/vb2/eyeColorPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="random" type="Button" parent="Panel/vb/head/vb2/eyeColorPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+text = "R"
+
+[node name="eyeColor1_eyes" parent="Panel/vb/head/vb2" instance=ExtResource("5")]
+layout_mode = 2
+
+[node name="eyeColor2_eyes" parent="Panel/vb/head/vb2" instance=ExtResource("5")]
+layout_mode = 2
+
+[node name="bt_hair" type="Button" parent="Panel/vb"]
+layout_mode = 2
+text = "Hair"
+
+[node name="hair" type="VBoxContainer" parent="Panel/vb"]
+layout_mode = 2
+
+[node name="h_hairCut" parent="Panel/vb/hair" instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="b_hairLength" parent="Panel/vb/hair" instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="vb" type="VBoxContainer" parent="Panel/vb/hair"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="lbColorPresets" type="Label" parent="Panel/vb/hair/vb"]
+layout_mode = 2
+text = "Hair Color"
+horizontal_alignment = 1
+
+[node name="HairColorPresets" type="HBoxContainer" parent="Panel/vb/hair/vb"]
+layout_mode = 2
+alignment = 1
+
+[node name="black" type="Button" parent="Panel/vb/hair/vb/HairColorPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="dark_brown" type="Button" parent="Panel/vb/hair/vb/HairColorPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="light_brown" type="Button" parent="Panel/vb/hair/vb/HairColorPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="dark_blonde" type="Button" parent="Panel/vb/hair/vb/HairColorPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="light_blonde" type="Button" parent="Panel/vb/hair/vb/HairColorPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="dark_ginger" type="Button" parent="Panel/vb/hair/vb/HairColorPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="light_ginger" type="Button" parent="Panel/vb/hair/vb/HairColorPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="grey" type="Button" parent="Panel/vb/hair/vb/HairColorPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="white" type="Button" parent="Panel/vb/hair/vb/HairColorPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="random" type="Button" parent="Panel/vb/hair/vb/HairColorPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+text = "R"
+
+[node name="hb" type="HBoxContainer" parent="Panel/vb/hair/vb"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="vb" type="VBoxContainer" parent="Panel/vb/hair/vb/hb"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="rootColor_hair" parent="Panel/vb/hair/vb/hb/vb" instance=ExtResource("5")]
+layout_mode = 2
+
+[node name="k_rootOffset" parent="Panel/vb/hair/vb/hb/vb" instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="vb2" type="VBoxContainer" parent="Panel/vb/hair/vb/hb"]
+layout_mode = 2
+
+[node name="hairColor_hair" parent="Panel/vb/hair/vb/hb/vb2" instance=ExtResource("5")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="lbHairColor" type="Label" parent="Panel/vb/hair/vb/hb/vb2"]
+layout_mode = 2
+text = "Hair Color"
+horizontal_alignment = 1
+
+[node name="vb3" type="VBoxContainer" parent="Panel/vb/hair/vb/hb"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="tipColor_hair" parent="Panel/vb/hair/vb/hb/vb3" instance=ExtResource("5")]
+layout_mode = 2
+
+[node name="k_tipOffset" parent="Panel/vb/hair/vb/hb/vb3" instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="Panel/vb/hair/vb"]
+layout_mode = 2
+
+[node name="i_beard" parent="Panel/vb/hair" instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="c_beardLength" parent="Panel/vb/hair" instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="vb2" type="VBoxContainer" parent="Panel/vb/hair"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="lbColorPresets" type="Label" parent="Panel/vb/hair/vb2"]
+layout_mode = 2
+text = "Beard Color"
+horizontal_alignment = 1
+
+[node name="BeardColorPresets" type="HBoxContainer" parent="Panel/vb/hair/vb2"]
+layout_mode = 2
+alignment = 1
+
+[node name="black" type="Button" parent="Panel/vb/hair/vb2/BeardColorPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="dark_brown" type="Button" parent="Panel/vb/hair/vb2/BeardColorPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="light_brown" type="Button" parent="Panel/vb/hair/vb2/BeardColorPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="dark_blonde" type="Button" parent="Panel/vb/hair/vb2/BeardColorPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="light_blonde" type="Button" parent="Panel/vb/hair/vb2/BeardColorPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="dark_ginger" type="Button" parent="Panel/vb/hair/vb2/BeardColorPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="light_ginger" type="Button" parent="Panel/vb/hair/vb2/BeardColorPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="grey" type="Button" parent="Panel/vb/hair/vb2/BeardColorPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="white" type="Button" parent="Panel/vb/hair/vb2/BeardColorPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+
+[node name="random" type="Button" parent="Panel/vb/hair/vb2/BeardColorPresets"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7")
+text = "R"
+
+[node name="hb" type="HBoxContainer" parent="Panel/vb/hair/vb2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="vb" type="VBoxContainer" parent="Panel/vb/hair/vb2/hb"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="rootColor_beard" parent="Panel/vb/hair/vb2/hb/vb" instance=ExtResource("5")]
+layout_mode = 2
+
+[node name="o_rootOffset" parent="Panel/vb/hair/vb2/hb/vb" instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="vb2" type="VBoxContainer" parent="Panel/vb/hair/vb2/hb"]
+layout_mode = 2
+
+[node name="hairColor_beard" parent="Panel/vb/hair/vb2/hb/vb2" instance=ExtResource("5")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="lbHairColor" type="Label" parent="Panel/vb/hair/vb2/hb/vb2"]
+layout_mode = 2
+text = "Hair Color"
+horizontal_alignment = 1
+
+[node name="vb3" type="VBoxContainer" parent="Panel/vb/hair/vb2/hb"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="tipColor_beard" parent="Panel/vb/hair/vb2/hb/vb3" instance=ExtResource("5")]
+layout_mode = 2
+
+[node name="o_tipOffset" parent="Panel/vb/hair/vb2/hb/vb3" instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="HB" type="HBoxContainer" parent="."]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -166.0
+offset_top = -80.0
+offset_right = 166.0
+offset_bottom = -16.0
+mouse_filter = 0
+
+[node name="VB" type="VBoxContainer" parent="HB"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="nameText" type="LineEdit" parent="HB/VB"]
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "Character Name"
+expand_to_text_length = true
+context_menu_enabled = false
+clear_button_enabled = true
+
+[node name="HB" type="HBoxContainer" parent="HB/VB"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="randomButton" type="Button" parent="HB/VB/HB"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Randomize"
+
+[node name="savePreset" type="Button" parent="HB/VB/HB"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Save Preset"
+
+[node name="saveCharacter" type="Button" parent="HB/VB/HB"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "SAVE"
+
+[node name="loadPreset" type="Button" parent="HB/VB/HB"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Load Last"
+
+[node name="vp" type="Button" parent="HB"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("1")
+theme_override_styles/disabled = SubResource("1")
+theme_override_styles/hover = SubResource("1")
+theme_override_styles/pressed = SubResource("1")
+theme_override_styles/normal = SubResource("1")
+button_mask = 0
+
+[node name="Randomizer" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("8")
+
+[node name="EditBehaviour" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("9")
+
+[node name="Label2" type="Label" parent="."]
+visible = false
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -39.0
+offset_top = 2.0
+offset_bottom = 38.0
+theme_override_colors/font_color = Color(0, 0.890196, 0.0980392, 1)
+theme_override_fonts/font = SubResource("2")
+text = "60"
+
+[connection signal="text_changed" from="HB/VB/nameText" to="." method="_on_nameText_text_changed"]
+[connection signal="pressed" from="HB/VB/HB/randomButton" to="." method="_on_randomButton_pressed"]
+[connection signal="pressed" from="HB/VB/HB/savePreset" to="." method="_on_savePreset_pressed"]
+[connection signal="pressed" from="HB/VB/HB/saveCharacter" to="." method="_on_saveCharacter_pressed"]
+[connection signal="pressed" from="HB/VB/HB/loadPreset" to="." method="_on_loadPreset_pressed"]
+
+[editable path="Panel/vb/head/p_facePaint"]

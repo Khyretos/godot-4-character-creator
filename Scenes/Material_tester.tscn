@@ -1,0 +1,86 @@
+[gd_scene load_steps=11 format=3 uid="uid://dji4ki7e8ycxp"]
+
+[ext_resource type="PackedScene" uid="uid://d0og5yysy5k1s" path="res://MainCharacter/Mesh/Parts/arms.glb" id="1"]
+[ext_resource type="PackedScene" uid="uid://df2eh6rvftgx5" path="res://MainCharacter/Mesh/Parts/head.glb" id="7"]
+[ext_resource type="PackedScene" uid="uid://b26u02v5vgo78" path="res://Scenes/CharacterCreator.tscn" id="9"]
+[ext_resource type="PackedScene" uid="uid://cxfvw8a15f3fd" path="res://MainCharacter/Mesh/Parts/torso.glb" id="10"]
+[ext_resource type="PackedScene" uid="uid://1qi2uothyj08" path="res://MainCharacter/Mesh/Parts/legs.glb" id="11"]
+
+[sub_resource type="Animation" id="2"]
+length = 0.1
+loop_mode = 1
+
+[sub_resource type="Animation" id="3"]
+resource_name = "cam2Test"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CameraMenu:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.0303243, 1.2797, 2.20732), Vector3(0.0316261, 1.9184, 0.596222)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CameraMenu:fov")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [60.0, 35.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CameraMenu:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-8.906, 0, 0), Vector3(-8.906, 0, 0)]
+}
+
+[sub_resource type="Animation" id="4"]
+
+[sub_resource type="Animation" id="5"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h2o2v"]
+_data = {
+"Idle": SubResource("2"),
+"cam2Test": SubResource("3"),
+"face": SubResource("4"),
+"toFace": SubResource("5")
+}
+
+[node name="Node3D" type="Node3D"]
+
+[node name="main" parent="." instance=ExtResource("9")]
+
+[node name="AnimationPlayer" parent="main" index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_h2o2v")
+}
+
+[node name="MainCharacter" parent="main" index="3"]
+visible = false
+
+[node name="arms" parent="." instance=ExtResource("1")]
+
+[node name="head" parent="." instance=ExtResource("7")]
+
+[node name="legs" parent="." instance=ExtResource("11")]
+
+[node name="torso_MainRig#torso" parent="." instance=ExtResource("10")]
+
+[editable path="main"]
+[editable path="main/bg"]

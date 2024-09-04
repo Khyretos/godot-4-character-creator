@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bola31y0s2aer"]
+
+[ext_resource type="Script" path="res://Scripts/CameraMenu.gd" id="1"]
+
+[node name="CameraMenu" type="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 0.987944, 0.154814, 0, -0.154814, 0.987944, -0.0280299, 1.30335, 2.14765)
+current = true
+fov = 59.1667
+far = 126.2
+script = ExtResource("1")
