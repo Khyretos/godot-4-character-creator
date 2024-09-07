@@ -1,5 +1,5 @@
 extends Control
-@onready var p=get_parent()
+@onready var p = get_parent()
 
 func _ready():
 	pass
@@ -53,56 +53,56 @@ func _randomizeBones():
 			var t:Transform3D
 			var headScale=randf_range(0.9,1.1)
 			t=t.scaled(Vector3(1,1,1)*headScale)
-			sk.set_bone_custom_pose(sk.find_bone("head"),t)
+			sk.set_bone_global_pose_override(sk.find_bone("head_2"),t,false)
 				
 			var t2:Transform3D
 			t2=t2.translated(Vector3(0,randf_range(-scaleLimit,scaleLimit),0))
-			sk.set_bone_custom_pose(sk.find_bone("shoulder_l"),t2)
-			sk.set_bone_custom_pose(sk.find_bone("shoulder_r"),t2)
+			sk.set_bone_global_pose_override(sk.find_bone("shoulder_L"),t2,false)
+			sk.set_bone_global_pose_override(sk.find_bone("shoulder_R"),t2,false)
 			
 			var t3:Transform3D
 			t3=t3.translated(Vector3(0,randf_range(-scaleLimit,scaleLimit),0))
-			sk.set_bone_custom_pose(sk.find_bone("spine_3"),t3)
+			sk.set_bone_global_pose_override(sk.find_bone("spine3"),t3,false)
 			
 		if i==1:
 			var scaleLimit:float=0.02
 			var t:Transform3D			
 			t=t.translated(Vector3(0,randf_range(-scaleLimit,scaleLimit),0))
-			sk.set_bone_custom_pose(sk.find_bone("spine_1"),t)
+			sk.set_bone_global_pose_override(sk.find_bone("spine1"),t,false)
 			
 			var t2:Transform3D
 			t2=t2.translated(Vector3(0,randf_range(-scaleLimit,scaleLimit),0))
-			sk.set_bone_custom_pose(sk.find_bone("spine_2"),t2)
+			sk.set_bone_global_pose_override(sk.find_bone("spine2"),t2,false)
 			
 			var t3:Transform3D
 			t3=t3.translated(Vector3(0,randf_range(-scaleLimit,scaleLimit),0))
-			sk.set_bone_custom_pose(sk.find_bone("forearm_R"),t3)
-			sk.set_bone_custom_pose(sk.find_bone("forearm_L"),t3)
+			sk.set_bone_global_pose_override(sk.find_bone("forearm_R"),t3,false)
+			sk.set_bone_global_pose_override(sk.find_bone("forearm_L"),t3,false)
 			
 			var t4:Transform3D
 			scaleLimit=0.005
 			t4=t4.translated(Vector3(0,randf_range(-scaleLimit,scaleLimit),0))
-			sk.set_bone_custom_pose(sk.find_bone("upper_arm_R"),t4)
-			sk.set_bone_custom_pose(sk.find_bone("upper_arm_L"),t4)
+			sk.set_bone_global_pose_override(sk.find_bone("upper_arm_R"),t4,false)
+			sk.set_bone_global_pose_override(sk.find_bone("upper_arm_L"),t4,false)
 
 		if i==2:
 			var scaleLimit:float=0.04
 			var t:Transform3D
 			t=t.translated(Vector3(0,randf_range(-scaleLimit,scaleLimit),0))
-			sk.set_bone_custom_pose(sk.find_bone("thigh_R"),t)
-			sk.set_bone_custom_pose(sk.find_bone("thigh_L"),t)
-			sk.set_bone_custom_pose(sk.find_bone("spine"),t*sk.get_bone_custom_pose(sk.find_bone("shin_R")))
+			sk.set_bone_global_pose_override(sk.find_bone("thigh_R"),t,false)
+			sk.set_bone_global_pose_override(sk.find_bone("thigh_L"),t,false)
+			sk.set_bone_global_pose_override(sk.find_bone("spine"),t*sk.get_bone_global_pose_no_override(sk.find_bone("shin_R")),false)
 			
 			var t2:Transform3D
 			t2=t2.translated(Vector3(0,randf_range(-scaleLimit,scaleLimit),0))
-			sk.set_bone_custom_pose(sk.find_bone("shin_R"),t2)
-			sk.set_bone_custom_pose(sk.find_bone("shin_L"),t2)
-			sk.set_bone_custom_pose(sk.find_bone("spine"),t2*sk.get_bone_custom_pose(sk.find_bone("thigh_R")))
+			sk.set_bone_global_pose_override(sk.find_bone("shin_R"),t2,false)
+			sk.set_bone_global_pose_override(sk.find_bone("shin_L"),t2,false)
+			sk.set_bone_global_pose_override(sk.find_bone("spine"),t2*sk.get_bone_global_pose_no_override(sk.find_bone("thigh_R")),false)
 			
 			var t3:Transform3D
 			t3=t3.translated(Vector3(0,randf_range(-scaleLimit,scaleLimit),0))
-			sk.set_bone_custom_pose(sk.find_bone("toe_R"),t3)
-			sk.set_bone_custom_pose(sk.find_bone("toe_L"),t3)
+			sk.set_bone_global_pose_override(sk.find_bone("toe_R"),t3,false)
+			sk.set_bone_global_pose_override(sk.find_bone("toe_L"),t3,false)
 	p.get_node("EditBehaviour")._adjustFaceCamHeight()
 
 func _randomizeShapes():
@@ -126,10 +126,14 @@ func _randomizeShapes():
 				if randValue==0:						#apply blend shape to this value or the next
 					head.set("blend_shapes/"+bs,randShapeValue)
 					head.set("blend_shapes/"+bsNext,0) #Clear the value in case of multiple randomization
-					currentBeard.set("blend_shapes/"+bs,randShapeValue)
-					currentHair.set("blend_shapes/"+bs,randShapeValue)
+					if currentBeard:
+						currentBeard.set("blend_shapes/"+bs,randShapeValue)
+					if currentHair:
+						currentHair.set("blend_shapes/"+bs,randShapeValue)
 				elif randValue==1:
 					head.set("blend_shapes/"+bsNext,randShapeValue)
 					head.set("blend_shapes/"+bs,0) #Clear the value in case of multiple randomization
-					currentBeard.set("blend_shapes/"+bs,randShapeValue)
-					currentHair.set("blend_shapes/"+bs,randShapeValue)
+					if currentBeard:
+						currentBeard.set("blend_shapes/"+bs,randShapeValue)
+					if currentHair:
+						currentHair.set("blend_shapes/"+bs,randShapeValue)

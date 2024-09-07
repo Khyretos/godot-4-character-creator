@@ -26,8 +26,7 @@ var currentHair:MeshInstance3D
 
 func _ready():
 	mouseTarget = get_parent().get_parent().get_node("MainCharacter/MouseTarget")
-	# await get_tree().idle_frame
-	# await get_tree().idle_frame
+	await get_tree().process_frame
 	head =  mainRig.get_node("head")
 	headMat = mainRig.get_node("head").get_surface_override_material(0)
 	torsoMat = mainRig.get_node("torso").get_surface_override_material(0)
@@ -36,7 +35,7 @@ func _ready():
 	currentBeard = mainRig.get_parent().find_child("beard?",true,false)
 	currentHair = mainRig.get_parent().find_child("hair?",true,false)
 
-func _process(delta):
+func _process(_delta):
 	#BLOCK INPUT ON THE BOTTON MENU
 	if get_viewport().get_mouse_position().y<get_parent().get_node("HB").position.y:
 		_mouseTarget()
@@ -55,7 +54,7 @@ func _mouseTarget():
 		canGrab=true
 #		mouseTarget.translation = result.position
 #		mouseTargetPos=result.position	
-		Input.set_default_cursor_shape(Input.CURSOR_DRAG)	
+		Input.set_default_cursor_shape(Input.CURSOR_DRAG)
 	else:
 		canGrab=false
 		if !isGrabbing:
@@ -84,7 +83,7 @@ func _highLight():
 		torsoMat.set_shader_parameter("idMask",ResourceLoader.load(maskNull))
 		armsMat.set_shader_parameter("idMask",ResourceLoader.load(maskNull))
 		legsMat.set_shader_parameter("idMask",ResourceLoader.load(maskNull))
-	else:		
+	else:
 		if currentShape=="spine_1" or currentShape=="spine_2" or currentShape=="spine_3":
 			torsoMat.set_shader_parameter("idMask",ResourceLoader.load(mask))
 			armsMat.set_shader_parameter("idMask",ResourceLoader.load(maskNull))
@@ -108,7 +107,7 @@ func _highLight():
 		else:
 			headMat.set_shader_parameter("idMask",ResourceLoader.load(mask))
 
-func _input(event):
+func _input(_event):
 	if Input.is_action_just_pressed("lmb") and canGrab:
 		isGrabbing=true
 		grabPos=get_viewport().get_mouse_position()
@@ -141,8 +140,10 @@ func _grabHeadShapes(mouseX,mouseY):
 			if head.get("blend_shapes/"+currentShape+grabDirX)!=null:
 				head.set("blend_shapes/"+currentShape+grabDirX,remap(head.get("blend_shapes/"+currentShape+grabDirX) + abs(mouseX),0,limit,0,1))
 				#ADJUST EXTRA MESHES BLEND SHAPES
-				currentHair.set("blend_shapes/"+currentShape+grabDirX,remap(head.get("blend_shapes/"+currentShape+grabDirX) + abs(mouseX),0,limit,0,1))
-				currentBeard.set("blend_shapes/"+currentShape+grabDirX,remap(head.get("blend_shapes/"+currentShape+grabDirX) + abs(mouseX),0,limit,0,1))
+				if currentHair:
+					currentHair.set("blend_shapes/"+currentShape+grabDirX,remap(head.get("blend_shapes/"+currentShape+grabDirX) + abs(mouseX),0,limit,0,1))
+				if currentBeard:
+					currentBeard.set("blend_shapes/"+currentShape+grabDirX,remap(head.get("blend_shapes/"+currentShape+grabDirX) + abs(mouseX),0,limit,0,1))
 		if mouseY>0:
 			grabDirY="_h-"
 		else:
@@ -152,8 +153,10 @@ func _grabHeadShapes(mouseX,mouseY):
 	
 			if head.get("blend_shapes/"+currentShape+grabDirY)!=null:
 				head.set("blend_shapes/"+currentShape+grabDirY,remap(head.get("blend_shapes/"+currentShape+grabDirY) + abs(mouseY),0,limit,0,1))
-				currentHair.set("blend_shapes/"+currentShape+grabDirY,remap(head.get("blend_shapes/"+currentShape+grabDirY) + abs(mouseY),0,limit,0,1))
-				currentBeard.set("blend_shapes/"+currentShape+grabDirY,remap(head.get("blend_shapes/"+currentShape+grabDirY) + abs(mouseY),0,limit,0,1))
+				if currentHair:
+					currentHair.set("blend_shapes/"+currentShape+grabDirY,remap(head.get("blend_shapes/"+currentShape+grabDirY) + abs(mouseY),0,limit,0,1))
+				if currentBeard:
+					currentBeard.set("blend_shapes/"+currentShape+grabDirY,remap(head.get("blend_shapes/"+currentShape+grabDirY) + abs(mouseY),0,limit,0,1))
 
 	#---------------DEPTH
 	if rot>rotLimit :
@@ -166,6 +169,7 @@ func _grabHeadShapes(mouseX,mouseY):
 				head.set("blend_shapes/"+currentShape+grabDirX,remap(head.get("blend_shapes/"+currentShape+grabDirX) + abs(mouseX),0,limit,0,1))
 				currentHair.set("blend_shapes/"+currentShape+grabDirX,remap(head.get("blend_shapes/"+currentShape+grabDirX) + abs(mouseX),0,limit,0,1))
 				currentBeard.set("blend_shapes/"+currentShape+grabDirX,remap(head.get("blend_shapes/"+currentShape+grabDirX) + abs(mouseX),0,limit,0,1))
+	
 	#------------INVERT VALUES DUE TO THE ROTATION OF THE CHARACTER POINTING ONE SIDE OR ANOTHER
 	if rot<-rotLimit:
 		if mouseX>0:
@@ -181,73 +185,69 @@ func _grabHeadShapes(mouseX,mouseY):
 func _grabBones(mouseX:float,mouseY:float):
 	var scaleAmountY:float = mouseY*0.01
 	var scaleAmountX:float = mouseX*0.01
-	var thisBone = mainRig.find_bone(currentShape)
-	var t:Transform3D 
-	var t2:Transform3D 
 
-	if currentShape=="spine_1" or currentShape=="spine_2":
+	if currentShape=="spine_1":
 		var scaleLimit:float = 0.02
 		
 		if scaleAmountY>=-scaleLimit and scaleAmountY<=scaleLimit:
-			t=t.translated(Vector3(0,-scaleAmountY,0))
-			mainRig.set_bone_custom_pose(thisBone,t)
+			mainRig.set_bone_pose_scale(mainRig.find_bone("spine1"),Vector3(1, 1 + -scaleAmountY, 1))
+
+	if currentShape=="spine_2":
+		var scaleLimit:float = 0.02
+		
+		if scaleAmountY>=-scaleLimit and scaleAmountY<=scaleLimit:
+			mainRig.set_bone_pose_scale(mainRig.find_bone("spine2"),Vector3(1,1 + -scaleAmountY  , 1))
 
 	if currentShape=="spine_3":
 		var scaleLimit:float = 0.03
 		if scaleAmountX>=-scaleLimit and scaleAmountX<=scaleLimit:
-			t=t.translated(Vector3(0,scaleAmountX,0))
-			mainRig.set_bone_custom_pose(mainRig.find_bone("shoulder_l"),t)
-			mainRig.set_bone_custom_pose(mainRig.find_bone("shoulder_r"),t)
-		#t2-----Different transform to avoid problems	
+			mainRig.set_bone_pose_scale(mainRig.find_bone("shoulder_L"),Vector3(1 + scaleAmountX , 1 , 1))
+			mainRig.set_bone_pose_scale(mainRig.find_bone("shoulder_R"),Vector3(1 + scaleAmountX, 1 , 1))
+
 		if scaleAmountY>=-scaleLimit and scaleAmountY<=scaleLimit:
-			t2=t2.translated(Vector3(0,-scaleAmountY,0))
-			mainRig.set_bone_pose(mainRig.find_bone("spine_3"),t2)
+			mainRig.set_bone_pose_scale(mainRig.find_bone("spine3"),Vector3(1 , 1 + -scaleAmountY , 1))
 		
 	if currentShape=="upper":
 		var scaleLimit:float = 0.03
 		if scaleAmountY>=-scaleLimit and scaleAmountY<=scaleLimit:
-			t=t.translated(Vector3(0,scaleAmountY,0))
-			mainRig.set_bone_custom_pose(mainRig.find_bone("upper_arm_l"),t)
-			mainRig.set_bone_custom_pose(mainRig.find_bone("upper_arm_r"),t)
+			mainRig.set_bone_pose_scale(mainRig.find_bone("upper_arm_L"),Vector3(1 , 1 + scaleAmountY , 1))
+			mainRig.set_bone_pose_scale(mainRig.find_bone("upper_arm_R"),Vector3(1 , 1 + scaleAmountY , 1))
 	
 	if currentShape=="forearm":
 		var scaleLimit:float = 0.08
-		if scaleAmountY>=-0.02 and scaleAmountY<=scaleLimit:	
-			t=t.translated(Vector3(0,scaleAmountY,0))
-			mainRig.set_bone_custom_pose(mainRig.find_bone("forearm_r"),t)
-			mainRig.set_bone_custom_pose(mainRig.find_bone("forearm_l"),t)
+		if scaleAmountY>=-0.02 and scaleAmountY<=scaleLimit:
+			mainRig.set_bone_pose_scale(mainRig.find_bone("forearm_R"),Vector3(1 , 1 + scaleAmountY , 1))
+			mainRig.set_bone_pose_scale(mainRig.find_bone("forearm_L"),Vector3(1 , 1 + scaleAmountY , 1))
 	
 	if currentShape=="thigh":
 		var scaleLimit:float = 0.05
 		if scaleAmountY>=-scaleLimit and scaleAmountY<=scaleLimit:
-			t=t.translated(Vector3(0,-scaleAmountY,0))
-			mainRig.set_bone_custom_pose(mainRig.find_bone("thigh_r"),t)
-			mainRig.set_bone_custom_pose(mainRig.find_bone("thigh_l"),t)
-			mainRig.set_bone_custom_pose(mainRig.find_bone("spine"),t*mainRig.get_bone_custom_pose(mainRig.find_bone("shin_l")))
-	
+			var t : Transform3D
+			t = t.translated_local(Vector3(0,-scaleAmountY,0))
+			mainRig.set_bone_pose_scale(mainRig.find_bone("thigh_R"),Vector3(1 , 1 + -scaleAmountY , 1))
+			mainRig.set_bone_pose_scale(mainRig.find_bone("thigh_L"),Vector3(1 , 1 + -scaleAmountY , 1))
+			# mainRig.set_bone_pose_position(mainRig.find_bone("spine"),t * mainRig.get_bone_pose_position(mainRig.find_bone("shin_L")))
+
 	if currentShape=="shin":
 		var scaleLimit:float = 0.05
 		if scaleAmountY>=-scaleLimit and scaleAmountY<=scaleLimit:
-			t=t.translated(Vector3(0,-scaleAmountY,0))
-			mainRig.set_bone_custom_pose(mainRig.find_bone("shin_r"),t)
-			mainRig.set_bone_custom_pose(mainRig.find_bone("shin_l"),t)
-			mainRig.set_bone_custom_pose(mainRig.find_bone("spine"),t*mainRig.get_bone_custom_pose(mainRig.find_bone("thigh_r")))
+			mainRig.set_bone_pose_scale(mainRig.find_bone("shin_R"),Vector3(1 , 1 + -scaleAmountY , 1))
+			mainRig.set_bone_pose_scale(mainRig.find_bone("shin_L"),Vector3(1 , 1 + -scaleAmountY , 1))
+			# mainRig.set_bone_pose(mainRig.find_bone("spine"),t*mainRig.get_bone_global_pose_no_override(mainRig.find_bone("thigh_R")))
 	
 	if currentShape=="foot":
 		var scaleLimit:float = 0.05
-		if scaleAmountX>=-scaleLimit and scaleAmountX<=scaleLimit:	
-			t=t.translated(Vector3(0,scaleAmountX,0))
-			mainRig.set_bone_custom_pose(mainRig.find_bone("toe_r"),t)
-			mainRig.set_bone_custom_pose(mainRig.find_bone("toe_l"),t)
+		if scaleAmountX>=-scaleLimit and scaleAmountX<=scaleLimit:
+			mainRig.set_bone_pose_scale(mainRig.find_bone("toe_R"),Vector3(1 + scaleAmountX, 1 , 1))
+			mainRig.set_bone_pose_scale(mainRig.find_bone("toe_L"),Vector3(1 + scaleAmountX, 1 , 1))
 
 	if currentShape=="fullHead":
 		var scaleLimit:float = 0.1
 		if scaleAmountX>=-scaleLimit and scaleAmountX<=scaleLimit:
-			t=t.scaled(Vector3(1+scaleAmountX,1+scaleAmountX,1+scaleAmountX))
-			mainRig.set_bone_custom_pose(mainRig.find_bone("head"),t)
+			mainRig.set_bone_pose_scale(mainRig.find_bone("head_2"),Vector3(1 + scaleAmountX,1 + scaleAmountX,1 + scaleAmountX))
 				
 	_adjustFaceCamHeight()	
 
 func _adjustFaceCamHeight():
 	var faceCam:Camera3D = mainRig.get_parent().get_parent().get_node("faceViewport/faceCam")
-	faceCam.position.y = mainRig.get_bone_global_pose(mainRig.find_bone("head")).origin.y +0.1
+	faceCam.position.y = mainRig.get_bone_global_pose_no_override(mainRig.find_bone("head_2")).origin.y +0.1

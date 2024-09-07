@@ -1,8 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://b26u02v5vgo78"]
+[gd_scene load_steps=14 format=3 uid="uid://b26u02v5vgo78"]
 
-[ext_resource type="PackedScene" uid="uid://cxtrnfx4urloj" path="res://Scenes/MainCharacter.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://bola31y0s2aer" path="res://Scenes/CameraMenu.tscn" id="2"]
-[ext_resource type="PackedScene" uid="uid://ef4xfeupbmym" path="res://World/Levels/bg.glb" id="3"]
+[ext_resource type="PackedScene" uid="uid://6qa456o71ucd" path="res://Scenes/new_import.tscn" id="5_872gm"]
 [ext_resource type="PackedScene" uid="uid://d03ssghwguunl" path="res://Scenes/CharacterCreation.tscn" id="6"]
 
 [sub_resource type="Animation" id="2"]
@@ -62,39 +61,40 @@ _data = {
 "toFace": SubResource("5")
 }
 
-[sub_resource type="Sky" id="6"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6ec36"]
 
-[sub_resource type="Environment" id="7"]
+[sub_resource type="Sky" id="Sky_05w5s"]
+sky_material = SubResource("ProceduralSkyMaterial_6ec36")
+
+[sub_resource type="Environment" id="Environment_2jalb"]
 background_mode = 2
-sky = SubResource("6")
+sky = SubResource("Sky_05w5s")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_lqk3a"]
+size = Vector2(10, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_erb2x"]
+size = Vector3(10, 10, 1)
 
 [node name="main" type="Node3D"]
 
-[node name="bg" parent="." instance=ExtResource("3")]
-transform = Transform3D(0.254238, 0, 0, 0, 0.254238, 0, 0, 0, 0.254238, 0, 0, 0)
-
-[node name="Plane" parent="bg" index="0"]
-transform = Transform3D(31.602, 0, 0, 0, 11.5338, 0, 0, 0, 11.5338, 0.0751285, -0.0776451, -37.7056)
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+active = false
 callback_mode_process = 2
 libraries = {
 "": SubResource("AnimationLibrary_5nmr6")
 }
 
 [node name="CharacterCreation" parent="." instance=ExtResource("6")]
-visible = false
 
-[node name="MainCharacter" parent="." instance=ExtResource("1")]
+[node name="MainCharacter" parent="." instance=ExtResource("5_872gm")]
 
 [node name="CameraMenu" parent="." instance=ExtResource("2")]
-transform = Transform3D(1, 0, 0, 0, 0.987944, 0.154814, 0, -0.154814, 0.987944, -0.0303243, 1.2797, 2.20732)
-visible = false
+transform = Transform3D(1, 0, 0, 0, 0.987944, 0.154814, 0, -0.154814, 0.987944, -0.028, 1.303, 2.148)
 fov = 60.0
 
-[node name="SpotLight3D" type="SpotLight3D" parent="."]
+[node name="SpotLight" type="SpotLight3D" parent="."]
 transform = Transform3D(0.880767, -0.231214, 0.413268, 0, 0.872701, 0.488256, -0.47355, -0.430039, 0.768646, 0.834371, 2.41922, 1.90745)
-visible = false
 light_color = Color(0.843137, 0.843137, 0.843137, 1)
 shadow_enabled = true
 spot_range = 18.7034
@@ -102,7 +102,6 @@ spot_angle = 47.4
 
 [node name="SpotLight3" type="SpotLight3D" parent="."]
 transform = Transform3D(0.882951, -0.137273, -0.448947, 0.0223402, 0.967498, -0.251892, 0.468933, 0.212378, 0.85732, -1.75796, 1.10488, 2.198)
-visible = false
 light_color = Color(0.388235, 0.47451, 0.466667, 1)
 light_specular = 0.0
 spot_range = 9.9
@@ -110,13 +109,17 @@ spot_angle = 47.4
 
 [node name="SpotLight2" type="SpotLight3D" parent="."]
 transform = Transform3D(-0.899285, -0.0822006, -0.42957, 0.005942, 0.979793, -0.199928, 0.437324, -0.182345, -0.880624, -0.835243, 1.17948, -1.17092)
-visible = false
 light_energy = 2.83
 light_specular = 0.0
 spot_range = 9.9
 spot_angle = 47.4
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("7")
+environment = SubResource("Environment_2jalb")
 
-[editable path="bg"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_lqk3a")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -5)
+mesh = SubResource("BoxMesh_erb2x")

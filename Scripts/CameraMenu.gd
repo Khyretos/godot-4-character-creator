@@ -16,7 +16,7 @@ func _setZoomTarget():
 	var y =character.get_node("MainRig/Skeleton3D/attachHead").transform.origin +zoomOffset
 	zoomTarget=Vector3(0,y.y,y.z)
 	
-func _input(event):
+func _input(_event):
 	if !character:
 		return
 	

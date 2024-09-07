@@ -133,6 +133,7 @@ var skinTones:Dictionary={
 }
 
 func _ready():
+	
 	GameInstance.currentPlayer = character
 
 	#- HAIR COLOUR PRESETS
@@ -192,7 +193,7 @@ func _ready():
 	$Panel/vb/bt_presets.emit_signal("pressed")
 	
 	#WAIT TO THE CHARACTER LOAD
-	await get_tree().idle_frame
+	await get_tree().process_frame
 	
 	#-SET VIEWPORT SNAPSHOT TEXTURE
 	$HB/vp.icon = character.faceViewport.get_texture()
@@ -228,18 +229,18 @@ func _initValues():
 	$Panel/vb/hair/vb/HairColorPresets/black.emit_signal("pressed")
 	$Panel/vb/hair/vb2/BeardColorPresets/black.emit_signal("pressed")
 	
-func _initSlider(slider:HSlider,size:int,step:float,value,name):
-	if name=="Eyebrows Height":
+func _initSlider(slider:HSlider,_size:int,step:float,value,_name):
+	if _name=="Eyebrows Height":
 		slider.min_value=-5.1
 		slider.max_value=-4.9
 		slider.tick_count=1
 		slider.value=-5
 	else:
-		slider.max_value=size
-		slider.tick_count=size+1
+		slider.max_value=_size
+		slider.tick_count=_size+1
 		slider.step=step
 		slider.value=value
-	slider.get_parent().get_child(0).text = name
+	slider.get_parent().get_child(0).text = _name
 	
 func _randomHairColorClicked(type:String):
 	randomize()
@@ -309,7 +310,7 @@ func _colorPickerChanged(param:String,mat:String,col:Color):
 	else:
 		character._setMaterialParameter(param,mat,col)
 
-func _process(delta):
+func _process(_delta):
 	$Label2.text = str(Engine.get_frames_per_second())
 
 func _sliderChange(v,type,prop):
@@ -339,8 +340,10 @@ func _sliderChange(v,type,prop):
 			$Panel/vb/head/p_facePaint/sLabel.text=facePaintName[v]
 		"k":
 			character._setMaterialParameter(prop,"hair",v)
+			pass
 		"o":
 			character._setMaterialParameter(prop,"beard",v)
+			pass
 		"a":
 			if v==1:
 				character.head.set("blend_shapes/asymmetry1",1)
@@ -385,7 +388,8 @@ func _on_randomButton_pressed():
 	$Randomizer._randomize()
 
 func _snapshot():
-	var img:Image=character.faceViewport.get_texture().get_data()
+	# var view = character.faceViewport.get_texture().
+	var img:Image=character.faceViewport.get_texture().get_image()
 	img.save_png("res://Presets/"+$HB/VB/nameText.text+".png")
 
 func _on_saveCharacter_pressed():

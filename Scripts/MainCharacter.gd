@@ -4,7 +4,7 @@ extends Node3D
 @onready var sk:Skeleton3D = $MainRig/Skeleton3D
 
 var parts:Array = ["head","torso","arms","legs"]
-var bonesMod:Array = ["spine_3","spine_2","spine_1","thigh_l","thigh_r","shin_l","forearm_l","forearm_r","shin_r","upper_arm_l","upper_arm_r","foot_l","foot_r","shoulder_l","shoulder_r"]
+var bonesMod:Array = ["spine3","spine2","spine1","thigh_L","thigh_R","shin_L","forearm_L","forearm_R","shin_R","upper_arm_L","upper_arm_R","foot_L","foot_R","shoulder_L","shoulder_R"]
 
 @onready var faceCam:Camera3D 
 @onready var faceViewport:SubViewport
@@ -24,8 +24,8 @@ var armsMat:Material
 var legsMat:Material
 var beardMat:Material
 var hairMat:Material
-var arrayMat:Array=[]
-var blinkDelta:float=0.0
+var arrayMat:Array = []
+var blinkDelta:float = 0.0
 var blink:bool = false
 
 var characterData:Dictionary={
@@ -44,27 +44,23 @@ var preset:Dictionary={
 	colorPresets={}
 }
 func _ready():
-#	if not Engine.editor_hint:	
-	# $AnimationPlayer.get_animation("idle").loop=true
-	# $AnimationPlayer.play("idle")
-#	$AnimationPlayer.play("idle2")
 	_generate()
 	$MouseTarget.set_as_top_level(true)
 	faceCam=$faceViewport/faceCam
 	faceViewport = $faceViewport
 
 func _generate():
-	$MainRig/Skeleton3D/dummy.queue_free()
 	for p in parts:
-		var scenePart:Node3D = ResourceLoader.load("res://MainCharacter/Mesh/Parts/"+p+".glb").instantiate()
-		var mesh:MeshInstance3D = scenePart.get_child(0).get_child(0).duplicate()
+		var scenePart:Node3D = ResourceLoader.load("res://MainCharacter/Mesh/Parts/"+p+".tscn").instantiate()
+		var mesh : MeshInstance3D = scenePart
+		# mesh.duplicate()
 		
 		#----------------------Assign material
 		var mat:ShaderMaterial = matSkin.duplicate()
 		mesh.set_surface_override_material(0,mat)
+
 		#----------------------MESH RENAME BECAUSE IT WAS IMPOSSIBLE TO IMPORT IT AS "HEAD"
 		if mesh.name=="head":
-#			mesh.name="head"
 			headMat=mat
 			mat.set_shader_parameter("hairMask",ResourceLoader.load("res://MainCharacter/Material/Textures/subHair/subHair1_mask.jpg"))
 		else:
@@ -92,6 +88,7 @@ func _generate():
 		if p =="legs":
 			mesh.set_surface_override_material(1,matUnderwear)
 		sk.add_child(mesh)
+	
 	#--HAIR
 	head=sk.get_node("head")
 	arrayMat=[headMat,torsoMat,armsMat,legsMat]
@@ -129,9 +126,10 @@ func _setChubbiness(v):
 				arrayMat[i].set_shader_parameter("normalBlend",value)
 
 func _setBlendShape(part:String,prop:String,v:float):
-	await get_tree().idle_frame 
+	await get_tree().process_frame
 	var n = sk.find_child(part+"?",true,false)
-	n.set("blend_shapes/"+prop,v)
+	if n:
+		n.set("blend_shapes/"+prop,v)
 
 func _setMesh(part,v):
 	var n = sk.find_child(part+"?",true,false)
@@ -139,8 +137,8 @@ func _setMesh(part,v):
 		n.queue_free()
 		await n.tree_exited
 	
-	var scene = ResourceLoader.load("res://MainCharacter/Mesh/Parts/"+part+"/"+part+str(v)+".glb").instantiate()
-	var mesh = scene.get_child(0).get_child(0).duplicate()
+	var scene = ResourceLoader.load("res://MainCharacter/Mesh/Parts/"+part+"/"+part+str(v)+".tscn").instantiate()
+	var mesh = scene
 	match part:
 		"hair":
 			currentHair=mesh
@@ -158,7 +156,7 @@ func _setMesh(part,v):
 			currentBeard=mesh
 			if !beardMat:
 				beardMat=matHair.duplicate()
-			mesh.set_surface_override_material(0,beardMat)	
+			mesh.set_surface_override_material(0,beardMat)
 
 	sk.add_child(mesh)
 	_matchBlendShapes(mesh)
@@ -170,12 +168,12 @@ func _matchBlendShapes(mesh):
 
 func _setSkinColor(c):
 	c = _convertColorFromJson(c)
-	var sum = c[0]+c[1]+c[2]
-	var roughTweak = remap(sum,0,3,1,0.5)
-	for mat in arrayMat:
-		print(mat)
-		mat.set_shader_parameter("skinTone",c)
-		mat.set_shader_parameter("rPunch",roughTweak)
+	if c:
+		var sum = c[0]+c[1]+c[2]
+		var roughTweak = remap(sum,0,3,1,0.5)
+		for mat in arrayMat:
+			mat.set_shader_parameter("skinTone",c)
+			mat.set_shader_parameter("rPunch",roughTweak)
 
 func _on_blinkTimer_timeout():
 	$blinkAnim.start()
@@ -195,51 +193,23 @@ func _on_blinkAnim_timeout():
 		blinkDelta-=0.2
 	head.set("blend_shapes/blink",blinkDelta)
 
-func _setBone(b:String,data):
-	var t:Transform3D
-	print(b)
-	var bone = sk.find_bone(b)
-	t = t.translated(Vector3(0,data.bonesY[b],0))
-	sk.set_bone_pose(bone,t)
-	var t4 = sk.get_bone_pose(sk.find_bone("thigh_r")) *sk.get_bone_pose(sk.find_bone("shin_r"))
-	sk.set_bone_pose(sk.find_bone("spine"),t4)
-
 func _saveBlendShapes():
 	for b in head.mesh.get_blend_shape_count():
 		var bs = head.mesh.get_blend_shape_name(b)
-		if bs!="chubby" and bs!="blink":
+		if bs!="chubby" and bs!="blink": 
 			preset.shapes[bs]= head.get("blend_shapes/"+bs)
 	for b in sk.get_node("torso").mesh.get_blend_shape_count():
 		var bs = sk.get_node("torso").mesh.get_blend_shape_name(b)
 		preset.shapes[bs]=sk.get_node("torso").get("blend_shapes/"+bs)
 		characterData.shapes[bs]=sk.get_node("torso").get("blend_shapes/"+bs)
+
 func _saveBones():
 	for b in bonesMod:
 		preset.bonesY[b] = sk.get_bone_pose(sk.find_bone(b)).origin.y
 	preset["headBone"] = sk.get_bone_pose(sk.find_bone("head"))
 	
 func _load(data):
-	_loadBones(data)
 	_loadBlendShapes(data)
-	
-func _loadBones(data):
-	for b in bonesMod:
-		_setBone(b,data)
-		
-#	CONVERT FROM JSON
-	var split = data.headBone.split(",")
-	print("kees 1")
-	print(split[0])
-	# check if they are floats.
-	var x = Vector3(float(split[0]),float(split[1]),float(split[2]))
-	print("kees 2")
-	var y = Vector3(float(split[3]),float(split[4]),float(split[5]))
-	print("kees 3")
-	var z = Vector3(float(split[6]),float(split[7]),float(split[8]))
-	print("kees 4")
-	var t = Transform3D(x,y,z,Vector3(0,0,0))
-
-	sk.set_bone_pose(sk.find_bone("head"),t)
 
 func _loadBlendShapes(data):
 	for b in data.shapes:
@@ -277,7 +247,7 @@ func _saveCharacterData():
 	_saveBlendShapes()
 	characterData["bonesY"]=preset.bonesY
 	characterData["shapes"]=preset.shapes
-	characterData["headBone"]=sk.get_bone_pose(sk.find_bone("head"))
+	characterData["headBone"]=sk.get_bone_global_pose_no_override(sk.find_bone("head_2"))
 	characterData.colors["skinColor"] = headMat.get_shader_parameter("skinTone")
 	characterData.colors["facePaintColor"] = headMat.get_shader_parameter("facePaintColor")
 	characterData.colors.hair["rootColor"]=hairMat.get_shader_parameter("rootColor")
@@ -289,8 +259,8 @@ func _saveCharacterData():
 	characterData.colors["eyeColor1"]=matEye.get_shader_parameter("eyeColor1")
 	characterData.colors["eyeColor2"]=matEye.get_shader_parameter("eyeColor1")
 	
-	characterData.meshes["hair"] = currentHair.name.substr(currentHair.name.length()-1)
-	characterData.meshes["beard"] = currentBeard.name.substr(currentBeard.name.length()-1)
+	characterData.meshes["hair"] = currentHair.name.substr(currentHair.name.length() - 1)
+	characterData.meshes["beard"] = currentBeard.name.substr(currentBeard.name.length() - 1)
 	
 	characterData.materialParameters["eyebrows"]= _getStreamTexture("eyebrows")
 	characterData.materialParameters["facePaint"]= _getStreamTexture("facePaint")

@@ -11,8 +11,8 @@ func _ready():
 	mat=split[1]
 	n = name
 
-func _on_colorPicker_color_changed(color):
-	owner._colorPickerChanged(param,mat,color)
+func _on_colorPicker_color_changed(_color):
+	owner._colorPickerChanged(param,mat,_color)
 
 func _on_colorPicker_pressed():
 #	return

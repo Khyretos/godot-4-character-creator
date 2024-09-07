@@ -4,7 +4,8 @@ var currentPlayer
 var nextScene
 
 @onready var mainScene = preload("res://Scenes/MainMenu.tscn")
-@onready var player = preload("res://Scenes/MainCharacter.tscn")
+# @onready var player = preload("res://Scenes/MainCharacter.tscn")
+@onready var player = preload("res://Scenes/new_import.tscn")
 @onready var GAME = get_parent().get_node("Game")
 
 func _ready():
@@ -12,7 +13,6 @@ func _ready():
 	GAME.add_child(currentScene)
 
 func _changeScene(path:String):
-	print(path)
 	nextScene=ResourceLoader.load(path).instantiate()
 	currentScene.queue_free()
 	currentScene=nextScene

@@ -66,12 +66,12 @@ _data = {
 
 [node name="main" parent="." instance=ExtResource("9")]
 
-[node name="AnimationPlayer" parent="main" index="1"]
+[node name="AnimationPlayer" parent="main" index="0"]
 libraries = {
 "": SubResource("AnimationLibrary_h2o2v")
 }
 
-[node name="MainCharacter" parent="main" index="3"]
+[node name="MainCharacter" parent="main" index="2"]
 visible = false
 
 [node name="arms" parent="." instance=ExtResource("1")]
@@ -83,4 +83,3 @@ visible = false
 [node name="torso_MainRig#torso" parent="." instance=ExtResource("10")]
 
 [editable path="main"]
-[editable path="main/bg"]

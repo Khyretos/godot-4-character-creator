@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dynarufmfxvyy"]
+
+[ext_resource type="Texture2D" uid="uid://c658hrai12c2r" path="res://MainCharacter/Material/Textures/body/arms_a.jpg" id="1_ivmju"]
+
+[resource]
+resource_name = "arms"
+cull_mode = 2
+albedo_texture = ExtResource("1_ivmju")
+roughness = 0.5

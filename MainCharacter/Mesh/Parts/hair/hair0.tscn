@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://bw7h7viv76owf"]
+
+[node name="Hair0" type="MeshInstance3D"]

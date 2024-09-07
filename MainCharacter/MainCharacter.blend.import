@@ -31,7 +31,70 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-_subresources={}
+_subresources={
+"nodes": {
+"PATH:AnimationPlayer": {
+"import/skip_import": true
+},
+"PATH:Camera": {
+"import/skip_import": true
+},
+"PATH:CustomShape": {
+"import/skip_import": true
+},
+"PATH:MainRig/Skeleton3D": {
+"rest_pose/external_animation_library": null
+},
+"PATH:MainRig/Skeleton3D/arms": {
+"import/skip_import": true
+},
+"PATH:MainRig/Skeleton3D/beard0": {
+"import/skip_import": true
+},
+"PATH:MainRig/Skeleton3D/beard1": {
+"import/skip_import": true
+},
+"PATH:MainRig/Skeleton3D/beard2": {
+"import/skip_import": true
+},
+"PATH:MainRig/Skeleton3D/beard3": {
+"import/skip_import": true
+},
+"PATH:MainRig/Skeleton3D/beard4": {
+"import/skip_import": true
+},
+"PATH:MainRig/Skeleton3D/dummy": {
+"import/skip_import": true
+},
+"PATH:MainRig/Skeleton3D/hair1": {
+"import/skip_import": true
+},
+"PATH:MainRig/Skeleton3D/hair2": {
+"import/skip_import": true
+},
+"PATH:MainRig/Skeleton3D/hair3": {
+"import/skip_import": true
+},
+"PATH:MainRig/Skeleton3D/hair4": {
+"import/skip_import": true
+},
+"PATH:MainRig/Skeleton3D/hair5": {
+"import/skip_import": true
+},
+"PATH:MainRig/Skeleton3D/head": {
+"import/skip_import": true
+},
+"PATH:MainRig/Skeleton3D/legs": {
+"import/skip_import": true
+},
+"PATH:MainRig/Skeleton3D/torso": {
+"import/skip_import": true
+},
+"PATH:Sun": {
+"import/skip_import": true
+}
+}
+}
 blender/nodes/visible=0
 blender/nodes/active_collection_only=false
 blender/nodes/punctual_lights=true
