@@ -1,4 +1,4 @@
-res://MainCharacter/Mesh/Parts/torso.tscn
+res://Scenes/Game.tscn
 res://GUI/Theme/Theme.tres
 res://MainCharacter/Material/hair.gdshader
 res://MainCharacter/Material/xxx.gdshader
